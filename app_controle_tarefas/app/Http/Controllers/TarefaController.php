@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,16 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        //
+        if(Auth::check()){
+
+            $id = Auth::user()->id;
+            $name = Auth::user()->name;
+            $email = Auth::user()->email;
+
+            return "$id, $name , $email";
+        }else{
+            return 'tchau';
+        }
     }
 
     /**
