@@ -15,7 +15,6 @@
                     @endif
 
                     Antes de continuar, por favor verifique seu email com o código enviado.
-                    {{ __('If you did not receive the email') }},
                     Se ainda não recebeu,
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
