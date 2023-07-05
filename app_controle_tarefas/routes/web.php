@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('tarefa', 'TarefaController');
 Route::get('/mensagem-teste', function (){
-    // return new MensagemTesteMail();
-    Mail::to('grafit933@gmail.com')->send(new MensagemTesteMail());
-    return 'mensagem certo';
+    return new MensagemTesteMail();
+    // Mail::to('grafit933@gmail.com')->send(new MensagemTesteMail());
+    // return 'mensagem certo';
 });
