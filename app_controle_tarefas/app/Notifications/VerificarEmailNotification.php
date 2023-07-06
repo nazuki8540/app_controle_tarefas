@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 
-class VerifyEmailNotification extends Notification
+class VerificarEmailNotification extends Notification
 {
     /**
      * The callback that should be used to create the verify email URL.
@@ -17,6 +17,7 @@ class VerifyEmailNotification extends Notification
      * @var \Closure|null
      */
     public static $createUrlCallback;
+    public $name ;
 
     /**
      * The callback that should be used to build the mail message.
@@ -24,6 +25,10 @@ class VerifyEmailNotification extends Notification
      * @var \Closure|null
      */
     public static $toMailCallback;
+
+    public function __construct($name){
+        $this->name = $name;
+    }
 
     /**
      * Get the notification's channels.
@@ -63,9 +68,11 @@ class VerifyEmailNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Confirmação de email')
+            ->greeting('Olá, '.$this->name)
             ->line('Clique no botão abaixo para confirmar o email.')
             ->action('Verificar email', $url)
-            ->line('Se você não criou essa conta, por favor desconsidere');
+            ->line('Se você não criou essa conta, por favor desconsidere')
+            ->salutation('Att.');
     }
 
     /**
