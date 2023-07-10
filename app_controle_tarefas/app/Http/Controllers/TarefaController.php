@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TarefasExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 class TarefaController extends Controller
 {
     public function __construct()
@@ -124,8 +125,16 @@ class TarefaController extends Controller
         return redirect()->route('tarefa.index');
     }
 
-    public function exportacao ()
+    public function exportacao ($extensao)
     {
-        return Excel::download(new TarefasExport, 'tarefa.xlsx');
+        if(in_array($extensao,['csv','xlsx','pdf'])){
+            return Excel::download(new TarefasExport, 'tarefa.'.$extensao);
+        }
+        return redirect()->route('tarefa.index');
+    }
+    public function exportar()
+    {
+        $pdf = Pdf::loadView('tarefa.pdf', []);
+        return $pdf->download('lista_de_tarefas.pdf');
     }
 }
